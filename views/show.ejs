@@ -61,7 +61,7 @@
 document.querySelector("#refresh").onclick=()=>{
 fetch('https://randkep.herokuapp.com/image')
   .then(response => response.json())
-  .then((data)=>{console.log(data);document.querySelector("img").setAttribute("src",data.src)});
+  .then((data)=>{document.querySelector("img").setAttribute("src",data.src)});
 
 
 
