@@ -3,7 +3,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var Img = require("./models/img");
-
+var cors = require('cors')
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -14,8 +15,18 @@ app.use(methodOverride("_method"));
 app.get("/",(req,res)=>{Img.find({},(err,found)=>{
 	if(err){console.log(err)}
 	
-	else{console.log(found)
-		var img=found[Math.floor(Math.random()*found.length)]
+	else{
+			var notEmpty=[];
+		for(let i=0;i<found.length;i++){
+		if(found[i].src!=""){
+			notEmpty.push(found[i])
+			
+			
+		}
+		
+		
+	}
+		var img=notEmpty[Math.floor(Math.random()*notEmpty.length)]
 		
 		
 		res.render("show.ejs",{img:img})}
@@ -31,7 +42,25 @@ app.post("/",(req,res)=>{Img.create(req.body.img,(err,newly)=>{
 	
 })})
 	
+	app.get("/image",(req,res)=>{Img.find({},(err,found)=>{
+		
+	if(err){console.log(err)}
 	
+	else{
+		var notEmpty=[];
+		for(let i=0;i<found.length;i++){
+		if(found[i].src!=""){
+			notEmpty.push(found[i])
+			
+			
+	}}
+		var img=notEmpty[Math.floor(Math.random()*notEmpty.length)]
+		
+		
+		res.send(img)}
+	
+	
+})})
 	
 
 

@@ -37,8 +37,8 @@
 </div>
 
 
-<img src="<%=img.src%>">
-	
+<img alt "gond van" src="<%=img.src%>">
+	<button id="refresh" type="button" class="btn btn-info btn-lg btn-block">frissít</button>
               
 </div>
 
@@ -57,7 +57,20 @@
 
 
 
+<script>
+document.querySelector("#refresh").onclick=()=>{
+fetch('https://randkep.herokuapp.com/image')
+  .then(response => response.json())
+  .then((data)=>{console.log(data);document.querySelector("img").setAttribute("src",data.src)});
 
+
+
+
+
+
+}
+
+</script>
 
 
 
